@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda de Caza Profesional</title>
+  <meta name="description" content="Tienda online especializada en accesorios de caza, ópticas y tecnología para aventureros. Envíos rápidos y atención personalizada." />
+  <meta name="keywords" content="caza, tienda de caza, ópticas, accesorios para caza, equipo de caza, rifles, cámaras para naturaleza" />
+  <meta name="author" content="Tienda de Caza Profesional" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #f1f1f1;
+      overflow-x: hidden;
+    }
+
+    .video-background-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -2;
+    }
+
+    .video-background-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+
+    #intro-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ffffff;
+      color: #000;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      z-index: 9999;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+      animation: fadeOut 4s ease forwards;
+      animation-delay: 4s;
+    }
+
+    #intro-popup img {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+
+    header, nav, .container, footer {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    header {
+      padding: 50px 20px 20px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background-color: #1f3320cc;
+      padding: 15px;
+      gap: 15px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background 0.3s;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: #3e5840;
+    }
+
+    .container {
+      padding: 40px 20px;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .product {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid #444;
+      border-radius: 12px;
+      padding: 20px;
+      width: 100%;
+      max-width: 280px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .product img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: contain;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .product img:hover {
+      transform: scale(1.05);
+    }
+
+    .product button {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #2d4030;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cart {
+      background-color: #232323;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 40px auto;
+      max-width: 600px;
+    }
+
+    .cart-items {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .cart-total {
+      font-weight: bold;
+    }
+
+    .paypal-button {
+      margin-top: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    form input, form textarea {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    form button {
+      padding: 10px;
+      background-color: #3e5840;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      background: rgba(45, 62, 47, 0.85);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+      }
+      .product {
+        width: 90%;
+      }
+      .products {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video de fondo -->
+  <div class="video-background-container">
+    <video autoplay muted loop playsinline>
+      <source src="video-caza.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="overlay"></div>
+
+  <!-- Popup de bienvenida -->
+  <div id="intro-popup">
+    <img src="raquel.png" alt="Cliente feliz: Raquel" />
+    <p><strong>Raquel fue nuestra primera compradora y está súper contenta con su rifle</strong></p>
+  </div>
+
+  <header>
+    <h1>Tienda de Caza Profesional</h1>
+    <p>Todo lo que necesitas para tu próxima aventura</p>
+  </header>
+
+  <nav>
+    <a href="#productos">Productos</a>
+    <a href="#carrito">Carrito</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <div class="container" id="productos">
+    <h2>Productos</h2>
+    <div class="products">
+      <div class="product">
+        <img src="mira-telescopica.png" alt="Mira Telescópica" />
+        <h3>Mira Telescópica</h3>
+        <p>Alta precisión y alcance</p>
+        <p><strong>250 €</strong></p>
+        <button onclick="addToCart('Mira Telescópica', 250)">Añadir al carrito</button>
+      </div>
+      <div class="product">
+        <img src="bipode-rifle.png" alt="Bípode para Rifle" />
+        <h3>Bípode Ajustable</h3>
+        <p>Soporte y estabilidad en terreno</p>
+        <p><strong>60 €</strong></p>
+        <button onclick="addToCart('Bípode Ajustable', 60)">Añadir al carrito</button>
+      </div>
+      <div class="product">
+        <img src="botella-acero.png" alt="Botella Térmica" />
+        <h3>Botella Acero Inoxidable</h3>
+        <p>Duradera y térmica</p>
+        <p><strong>25 €</strong></p>
+        <button onclick="addToCart('Botella Acero', 25)">Añadir al carrito</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="carrito">
+    <h2>Tu Carrito</h2>
+    <div class="cart">
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-total" id="cart-total">Total: 0 €</div>
+      <div class="paypal-button">
+        <p><em>*Integración de pago por PayPal próximamente*</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="contacto">
+    <h2>Contacto</h2>
+    <form action="mailto:contacto@tiendadecaza.com" method="post">
+      <input type="text" name="nombre" placeholder="Tu nombre" required />
+      <input type="email" name="email" placeholder="Tu correo electrónico" required />
+      <textarea name="mensaje" placeholder="Tu mensaje" rows="4" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+    <p style="margin-top: 20px;">
+      ¿Prefieres WhatsApp? <a href="https://wa.me/34600123456" style="color:#a5f3fc;">Contáctanos</a>
+    </p>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Tienda de Caza. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    const cart = [];
+
+    function addToCart(product, price) {
+      cart.push({ product, price });
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-items');
+      const totalEl = document.getElementById('cart-total');
+      container.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+        container.innerHTML += \`<p>\${item.product} - \${item.price} € <button onclick="removeFromCart(\${index})">Eliminar</button></p>\`;
+      });
+
+      totalEl.innerText = \`Total: \${total} €\`;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+  </script>
+</body>
+</html>
